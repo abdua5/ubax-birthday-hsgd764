@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 28th Birthday, Ubax!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { box-sizing: border-box; }
+    .font-pacifico { font-family: 'Pacifico', cursive; }
+    .font-quicksand { font-family: 'Quicksand', sans-serif; }
+
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-20px) rotate(2deg);} }
+    @keyframes pulse-glow { 0%,100%{filter:drop-shadow(0 0 20px rgba(255,182,193,0.8));}50%{filter:drop-shadow(0 0 40px rgba(255,105,180,0.9));} }
+    @keyframes confetti-fall { 0%{transform:translateY(-100%) rotate(0deg);opacity:1;}100%{transform:translateY(100%) rotate(720deg);opacity:0;} }
+    @keyframes sparkle {0%,100%{opacity:0;transform:scale(0);}50%{opacity:1;transform:scale(1);} }
+    @keyframes bounce-in {0%{transform:scale(0);opacity:0;}50%{transform:scale(1.2);}100%{transform:scale(1);opacity:1;} }
+    @keyframes wiggle {0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);} }
+    @keyframes flame {0%,100%{transform:scaleY(1) scaleX(1);}50%{transform:scaleY(1.2) scaleX(0.9);} }
+    @keyframes heart-rise {0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-100px) scale(0);opacity:0;}}
+
+    .float-animation { animation: float 3s ease-in-out infinite; }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .bounce-in { animation: bounce-in 0.8s ease-out forwards; }
+    .wiggle { animation: wiggle 0.5s ease-in-out infinite; }
+
+    .confetti { position: fixed; width: 12px; height: 12px; top: -20px; animation: confetti-fall linear forwards; pointer-events: none; z-index: 1000; }
+    .sparkle { position: absolute; width: 8px; height: 8px; background: white; border-radius: 50%; animation: sparkle 1.5s ease-in-out infinite; }
+    .candle-flame { animation: flame 0.3s ease-in-out infinite; transform-origin: bottom center; }
+    .balloon { transition: transform 0.3s ease; }
+    .balloon:hover { transform: scale(1.1) translateY(-10px); }
+    .cake-layer { transition: transform 0.3s ease; }
+    .cake-container:hover .cake-layer { transform: scale(1.05); }
+    .heart-burst { position: fixed; pointer-events: none; z-index:1000; font-size:24px; animation: float 2s ease-out forwards; opacity:0; }
+  </style>
+</head>
+<body class="h-full font-quicksand" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 50%, #e1bee7 100%);">
+  <!-- Sparkles -->
+  <div id="sparkles" class="fixed inset-0 pointer-events-none overflow-hidden"></div>
+
+  <div class="min-h-full flex flex-col items-center justify-center p-6 relative">
+    <!-- Balloons -->
+    <div class="fixed top-4 left-4 md:left-10 balloon cursor-pointer" onclick="popBalloon(this)">
+      <svg width="60" height="80" viewBox="0 0 60 80"><ellipse cx="30" cy="30" rx="25" ry="30" fill="#ff6b9d" /><polygon points="30,60 25,65 35,65" fill="#ff6b9d"/></svg>
+    </div>
+    <div class="fixed top-8 right-4 md:right-10 balloon cursor-pointer" onclick="popBalloon(this)">
+      <svg width="60" height="80" viewBox="0 0 60 80"><ellipse cx="30" cy="30" rx="25" ry="30" fill="#9c27b0" /><polygon points="30,60 25,65 35,65" fill="#9c27b0"/></svg>
+    </div>
+
+    <!-- Age Badge -->
+    <div class="float-animation pulse-glow mb-6">
+      <div class="w-32 h-32 rounded-full flex items-center justify-center text-white font-bold text-5xl shadow-2xl" style="background: linear-gradient(135deg, #ec407a, #ab47bc);">
+        28
+      </div>
+    </div>
+
+    <!-- Main Message -->
+    <div class="text-center mb-8 bounce-in">
+      <h1 class="font-pacifico text-6xl mb-4" style="color: #ad1457; text-shadow: 3px 3px 6px rgba(0,0,0,0.1);">Happy Birthday!</h1>
+      <p class="text-3xl font-semibold" style="color: #7b1fa2;">To Ubax 💕</p>
+    </div>
+
+    <!-- Cake -->
+    <div class="cake-container relative cursor-pointer mb-8 bounce-in" onclick="blowCandles()">
+      <svg width="200" height="180" viewBox="0 0 200 180">
+        <ellipse cx="100" cy="165" rx="90" ry="12" fill="#d4a574" />
+        <rect x="20" y="120" width="160" height="45" rx="8" fill="#ff69b4" class="cake-layer"/>
+        <rect x="35" y="80" width="130" height="45" rx="8" fill="#da70d6" class="cake-layer"/>
+        <rect x="50" y="45" width="100" height="40" rx="8" fill="#ff1493" class="cake-layer"/>
+        <g id="candles">
+          <rect x="70" y="25" width="6" height="22" fill="#ffeb3b" rx="2"/>
+          <rect x="97" y="20" width="6" height="27" fill="#4fc3f7" rx="2"/>
+          <rect x="124" y="25" width="6" height="22" fill="#ff8a65" rx="2"/>
+          <g id="flames">
+            <ellipse cx="73" cy="20" rx="5" ry="8" fill="#ff9800" class="candle-flame"/>
+            <ellipse cx="100" cy="15" rx="5" ry="8" fill="#ff9800" class="candle-flame"/>
+            <ellipse cx="127" cy="20" rx="5" ry="8" fill="#ff9800" class="candle-flame"/>
+          </g>
+        </g>
+        <text x="100" y="110" text-anchor="middle" fill="white" font-size="20" font-weight="bold" font-family="Pacifico">28</text>
+      </svg>
+      <p class="text-center text-sm mt-2 opacity-70" style="color: #880e4f;">✨ Tap the cake to blow out the candles! ✨</p>
+    </div>
+
+    <!-- Love Message -->
+    <div class="bounce-in max-w-md text-center px-4">
+      <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-6 shadow-xl">
+        <p class="text-xl" style="color: #6a1b9a;">Wishing you a day filled with love, laughter, and all the happiness your heart can hold. Here's to an amazing year ahead! 🎂✨</p>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex flex-wrap gap-4 mt-8 bounce-in justify-center">
+      <button onclick="triggerConfetti()" class="px-6 py-3 rounded-full font-semibold text-white shadow-lg transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, #ec407a, #f48fb1);">🎉 Celebrate!</button>
+      <button onclick="sendLove()" class="px-6 py-3 rounded-full font-semibold text-white shadow-lg transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, #ab47bc, #ce93d8);">💝 Send Love</button>
+      <button onclick="makeWish()" class="px-6 py-3 rounded-full font-semibold text-white shadow-lg transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, #7b1fa2, #ba68c8);">⭐ Make a Wish</button>
+    </div>
+
+    <div id="wish-display" class="mt-6 text-center hidden">
+      <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg inline-block">
+        <p class="text-xl" style="color: #7b1fa2;">✨ Wish made! May it come true! ✨</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sparkles
+    function createSparkles() {
+      const container = document.getElementById('sparkles');
+      for(let i=0;i<20;i++){
+        const s=document.createElement('div');
+        s.className='sparkle';
+        s.style.left=Math.random()*100+'%';
+        s.style.top=Math.random()*100+'%';
+        s.style.animationDelay=Math.random()*3+'s';
+        container.appendChild(s);
+      }
+    }
+
+    // Confetti
+    function triggerConfetti(){
+      const colors=['#ff6b9d','#ff69b4','#da70d6','#ba68c8','#9c27b0','#ffeb3b','#ff9800'];
+      for(let i=0;i<80;i++){
+        setTimeout(()=>{
+          const c=document.createElement('div');
+          c.className='confetti';
+          c.style.left=Math.random()*100+'%';
+          c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+          c.style.animationDuration=(Math.random()*2+2)+'s';
+          document.body.appendChild(c);
+          setTimeout(()=>c.remove(),4000);
+        },i*30);
+      }
+    }
+
+    let candlesBlown=false;
+    function blowCandles(){
+      if(candlesBlown) return;
+      document.getElementById('flames').style.opacity='0';
+      candlesBlown=true;
+      setTimeout(()=>{triggerConfetti();sendLove();},500);
+      document.querySelector('.cake-container p').innerHTML='🎉 You made a wish! 🎉';
+    }
+
+    function sendLove(){
+      const hearts=['💕','💖','💝','💗','💓','❤️','🩷','💜'];
+      for(let i=0;i<15;i++){
+        setTimeout(()=>{
+          const h=document.createElement('div');
+          h.className='heart-burst';
+          h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+          h.style.left=(Math.random()*80+10)+'%';
+          h.style.top=(Math.random()*60+20)+'%';
+          h.style.animation='heart-rise 2s ease-out forwards';
+          h.style.opacity='1';
+          document.body.appendChild(h);
+          setTimeout(()=>h.remove(),2000);
+        },i*100);
+      }
+    }
+
+    function makeWish(){
+      const wishDisplay=document.getElementById('wish-display');
+      wishDisplay.classList.remove('hidden');
+      wishDisplay.classList.add('bounce-in');
+      setTimeout(()=>wishDisplay.classList.add('hidden'),3000);
+    }
+
+    function popBalloon(e){
+      e.classList.add('wiggle');
+      setTimeout(()=>{
+        e.style.transform='scale(1.5)';
+        e.style.opacity='0';
+        triggerConfetti();
+        setTimeout(()=>{e.style.display='none';},300);
+      },200);
+    }
+
+    createSparkles();
+    setTimeout(()=>{triggerConfetti();},1500);
+  </script>
+</body>
+</html>
